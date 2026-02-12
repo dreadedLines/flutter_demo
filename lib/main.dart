@@ -39,6 +39,17 @@ class HomeScreen extends StatelessWidget {
               );
             },
           ),
+          ListTile(
+            title: const Text("2. Another"),
+            leading: const Icon(Icons.code), // Optional: adds a little icon
+            onTap: () {
+              // Navigate to the new screen defined in the other file
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const DartDemoScreen()),
+              );
+            },
+          ),
         ],
       ),
     );
