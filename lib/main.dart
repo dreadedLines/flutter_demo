@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './dart_demo_screen.dart';
 
 void main() {
     runApp(FlutterDemoApp());
@@ -18,14 +19,29 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Hello world"), backgroundColor: Color(0xFF000000), foregroundColor: Color(0xAAFFFFFF),), body: Center(child: Text("Hello again", style: const TextStyle(color: Color(0xFFAB00EF), fontFamily: "Roboto", fontSize: 20, shadows: [
-      BoxShadow(
-        color: Color.fromRGBO(0, 0, 0, 0.2),
-        blurRadius: 20,
-        spreadRadius: -7,
-        offset: Offset(0, 60),
-      )
-  ]) ),) ,);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Home Screen"),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      // A ListView for your items
+      body: ListView(
+        children: [
+          // The single list item requested
+          ListTile(
+            title: const Text("1. Button"),
+            leading: const Icon(Icons.code), // Optional: adds a little icon
+            onTap: () {
+              // Navigate to the new screen defined in the other file
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const DartDemoScreen()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
 
