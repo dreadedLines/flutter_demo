@@ -9,6 +9,8 @@ class StateManagementDemo  extends StatefulWidget {
 
 class _StateManagementDemoState extends State<StateManagementDemo> {
   final myColors = [Colors.red, Colors.orange, Colors.amber, Colors.lime, Colors.indigo, Colors.brown, Colors.white];
+  int colorIndex = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,18 +37,18 @@ class _StateManagementDemoState extends State<StateManagementDemo> {
                     children: [
                       const SizedBox(height: 20,),
                       Container(
-                        color: myColors[1],
+                        color: myColors[colorIndex],
                         width: 200,
                         height: 200,
                         child: Align(
                           child: 
-                            Text("Hello", style: TextStyle(fontSize: 20),),
+                            Text("Hello", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Arial"),),
                         ),
                       ),
                       const SizedBox(height: 20,),
                       OutlinedButton(onPressed: () {}, child: Text("Change text")),
                       const SizedBox(height: 20,),
-                      OutlinedButton(onPressed: () {}, child: Text("Change color")),
+                      OutlinedButton(onPressed: changeColor, child: Text("Change color")),
                       
                     ]
                   ),
@@ -59,6 +61,8 @@ class _StateManagementDemoState extends State<StateManagementDemo> {
   }
 
   void changeColor() {
-    
+    setState(() {
+      colorIndex = (colorIndex + 1) % myColors.length;
+    });
   }
 }
