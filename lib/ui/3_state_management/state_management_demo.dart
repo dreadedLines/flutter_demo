@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-class StateManagementDemo  extends StatelessWidget {
+class StateManagementDemo  extends StatefulWidget {
   const StateManagementDemo ({super.key});
+
+  @override
+  State<StateManagementDemo> createState() => _StateManagementDemoState();
+}
+
+class _StateManagementDemoState extends State<StateManagementDemo> {
+  final myColors = [Colors.red, Colors.orange, Colors.amber, Colors.lime, Colors.indigo, Colors.brown, Colors.white];
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +35,13 @@ class StateManagementDemo  extends StatelessWidget {
                     children: [
                       const SizedBox(height: 20,),
                       Container(
-                        color: Colors.blueGrey,
+                        color: myColors[1],
                         width: 200,
                         height: 200,
+                        child: Align(
+                          child: 
+                            Text("Hello", style: TextStyle(fontSize: 20),),
+                        ),
                       ),
                       const SizedBox(height: 20,),
                       OutlinedButton(onPressed: () {}, child: Text("Change text")),
@@ -45,5 +56,9 @@ class StateManagementDemo  extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void changeColor() {
+    
   }
 }
