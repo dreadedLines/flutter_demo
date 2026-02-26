@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './dart_demo_screen.dart';
-import './widgets_demo_screen.dart';
+import 'ui/1_dart/dart_demo_screen.dart';
+import 'ui/2_widget_layout/widgets_demo_screen.dart';
 
 void main() {
     runApp(FlutterDemoApp());
