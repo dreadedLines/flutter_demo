@@ -8,9 +8,21 @@ class StateManagementDemo  extends StatefulWidget {
 }
 
 class _StateManagementDemoState extends State<StateManagementDemo> {
-  final myColors = [Colors.red, Colors.orange, Colors.amber, Colors.lime, Colors.indigo, Colors.brown, Colors.white];
-  int colorIndex = 0;
+  var myColors = [Colors.red, Colors.orange, Colors.amber, Colors.lime, Colors.indigo, Colors.brown, Colors.white];
+  final colorIndexNotifier = ValueNotifier(0);
 
+  int textIndex = 0;
+  int responseIndex = 0;
+  final myResponses = ["Hello", "World", "How is your day?", "This works", "Good"];
+  final responseColors = [
+    Color(
+      // 0xFFFFFFFF - myColors[textIndex].toARGB32()
+      0x00000000
+    ),
+    Color(
+      0xffffffff
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +49,14 @@ class _StateManagementDemoState extends State<StateManagementDemo> {
                     children: [
                       const SizedBox(height: 20,),
                       Container(
-                        color: myColors[colorIndex],
+                        color: myColors[colorIndexNotifier.value],
                         width: 200,
                         height: 200,
                         child: Align(
                           child: 
-                            Text("Hello", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Arial"),),
+                            Text(myResponses[textIndex], style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Arial", 
+                            // color: responseColors[responseIndex]
+                            ),),
                         ),
                       ),
                       const SizedBox(height: 20,),
@@ -61,8 +75,14 @@ class _StateManagementDemoState extends State<StateManagementDemo> {
   }
 
   void changeColor() {
+    // setState(() {
+      colorIndexNotifier.value = (colorIndexNotifier.value + 1) % myColors.length;
+    // });
+  }
+  void changeText() {
     setState(() {
-      colorIndex = (colorIndex + 1) % myColors.length;
+      textIndex = (textIndex + 1) % myResponses.length;
+      responseIndex = (responseIndex + 1) % responseColors.length;
     });
   }
 }
