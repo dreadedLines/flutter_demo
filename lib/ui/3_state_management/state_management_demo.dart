@@ -13,6 +13,13 @@ class _StateManagementDemoState extends State<StateManagementDemo> {
   final manager = StateManagementManager();
 
   @override
+  void initState() {
+    super.initState();
+    // TODO: implement initState
+    manager.init();
+  }
+
+  @override
   Widget build(BuildContext context) {
     int myVal = 10;
     return Scaffold(
@@ -35,9 +42,10 @@ class _StateManagementDemoState extends State<StateManagementDemo> {
                   Column(
                     children: [
                       const SizedBox(height: 20,),
-                      // ValueListenableBuilder(
-                      //   valueListenable: manager., builder: builder
-                      // )
+                      ValueListenableBuilder(
+                        valueListenable: manager.textNotifier, builder: (context, value, child) {
+                          return 
+                        
                       Container(
                         width: 200,
                         height: 200,
@@ -50,6 +58,8 @@ class _StateManagementDemoState extends State<StateManagementDemo> {
                             }
                           ),
                         )
+                      );
+                      }
                       ),
                       const SizedBox(height: 20,),
                       OutlinedButton(onPressed: manager.changeText, child: Text("Change text")),

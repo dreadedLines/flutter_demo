@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import '../../services/local_storage/local_storage.dart';
 
 class StateManagementManager {
+  localStorage = LocalStorage();
+
   var myColors = [Colors.red, Colors.orange, Colors.amber, Colors.lime, Colors.indigo, Colors.brown, Colors.white];
   var colorNotifier = ValueNotifier<Color>(
     Colors.white // myColors don't work for some reason
   );
-  // var textNotifier = ValueNotifier();
+  var textNotifier = ValueNotifier("Hello");
 
   int colorIndex = 0;
   int textIndex = 0;
@@ -29,6 +32,14 @@ class StateManagementManager {
   }
   void changeText() {
     textIndex = (textIndex + 1) % myResponses.length;
+    textNotifier.value = myResponses[textIndex];
     responseIndex = (responseIndex + 1) % responseColors.length;
+  }
+
+  void init() {
+    final color = localStorage.getColor();
+    final text = localStorage.getText();
+    colorNotifier.value = color;
+    textNotifier.value = text;
   }
 }
