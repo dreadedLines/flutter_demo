@@ -1,12 +1,14 @@
 import 'dart:io';
-
-import 'package:demo/ui/3_state_management/state_management_demo.dart';
 import 'package:flutter/material.dart';
+
+import './services/service_locator.dart';
 import 'ui/1_dart/dart_demo_screen.dart';
 import 'ui/2_widget_layout/widgets_demo_screen.dart';
+import 'ui/3_state_management/state_management_demo.dart';
 
 void main() {
-    runApp(FlutterDemoApp());
+  setupServiceLocator();
+  runApp(FlutterDemoApp());
 }
 
 class FlutterDemoApp extends StatelessWidget {
