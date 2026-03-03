@@ -15,7 +15,6 @@ class _StateManagementDemoState extends State<StateManagementDemo> {
   @override
   void initState() {
     super.initState();
-    // TODO: implement initState
     manager.init();
   }
 

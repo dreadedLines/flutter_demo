@@ -1,9 +1,8 @@
+import 'package:demo/services/service_locator.dart';
 import 'package:flutter/material.dart';
 import '../../services/local_storage/local_storage.dart';
 
 class StateManagementManager {
-  localStorage = LocalStorage();
-
   var myColors = [Colors.red, Colors.orange, Colors.amber, Colors.lime, Colors.indigo, Colors.brown, Colors.white];
   var colorNotifier = ValueNotifier<Color>(
     Colors.white // myColors don't work for some reason
@@ -37,8 +36,9 @@ class StateManagementManager {
   }
 
   void init() {
-    final color = localStorage.getColor();
-    final text = localStorage.getText();
+    final color = getIt<LocalStorage>().getColor();
+    final text = getIt<LocalStorage>().getText();
+    
     colorNotifier.value = color;
     textNotifier.value = text;
   }
