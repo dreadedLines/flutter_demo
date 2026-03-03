@@ -35,27 +35,26 @@ class _StateManagementDemoState extends State<StateManagementDemo> {
                   Column(
                     children: [
                       const SizedBox(height: 20,),
+                      // ValueListenableBuilder(
+                      //   valueListenable: manager., builder: builder
+                      // )
                       Container(
-                        color: manager.myColors[colorIndexNotifier.value],
                         width: 200,
                         height: 200,
                         child: Align(
                           child: ValueListenableBuilder(
-                            valueListenable: colorIndexNotifier,
+                            valueListenable: manager.colorNotifier,
                             builder: (context, value, child) {
-                              return Text(myResponses[textIndex], 
-                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Arial", color: responseColors[responseIndex]));
+                              return Text(manager.myResponses[manager.textIndex], 
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Arial", color: manager.responseColors[manager.responseIndex]));
                             }
-                            ),
+                          ),
                         )
-                          },
-                        ),
                       ),
                       const SizedBox(height: 20,),
-                      OutlinedButton(onPressed: changeText, child: Text("Change text")),
+                      OutlinedButton(onPressed: manager.changeText, child: Text("Change text")),
                       const SizedBox(height: 20,),
-                      OutlinedButton(onPressed: changeColor, child: Text("Change color")),
-                      
+                      OutlinedButton(onPressed: manager.changeColor, child: Text("Change color")), 
                     ]
                   ),
               ),
@@ -66,15 +65,4 @@ class _StateManagementDemoState extends State<StateManagementDemo> {
     );
   }
 
-  void changeColor() {
-    // setState(() {
-      colorIndexNotifier.value = (colorIndexNotifier.value + 1) % myColors.length;
-    // });
-  }
-  void changeText() {
-    setState(() {
-      textIndex = (textIndex + 1) % myResponses.length;
-      responseIndex = (responseIndex + 1) % responseColors.length;
-    });
-  }
 }
