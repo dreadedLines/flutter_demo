@@ -19,18 +19,19 @@ class DartDemoScreen extends StatelessWidget {
             // so the Center widget can do its job vertically
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton(onPressed: () {print("A");}, child: const Text("Button A")),
+              ElevatedButton(onPressed: () {
+                // print("A");
+                }, child: const Text("Button A")),
               const SizedBox(height: 10), // Spacing between buttons
               ElevatedButton(onPressed: () {
                 var birthyear = 2011;
-                var speed = "fast";
 
                 if (birthyear > 2000) {
-                  print("Dart was made in the new century");
+                  // print("Dart was made in the new century");
                 } else if (birthyear < 2000) {
-                  print("It's the 20-th century");
+                  // print("It's the 20-th century");
                 } else {
-                  print("It's the year 2000");
+                  // print("It's the year 2000");
                 } 
               }, child: const Text("Button 2")),
               const SizedBox(height: 10),

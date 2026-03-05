@@ -42,18 +42,19 @@ class _StateManagementDemoState extends State<StateManagementDemo> {
                     children: [
                       const SizedBox(height: 20,),
                       ValueListenableBuilder(
-                        valueListenable: manager.textNotifier, builder: (context, value, child) {
+                        valueListenable: manager.colorNotifier, builder: (context, value, child) {
                           return 
                         
                       Container(
+                        decoration: BoxDecoration(color: value),
                         width: 200,
                         height: 200,
                         child: Align(
                           child: ValueListenableBuilder(
-                            valueListenable: manager.colorNotifier,
+                            valueListenable: manager.stringNotifier,
                             builder: (context, value, child) {
-                              return Text(manager.myResponses[manager.textIndex], 
-                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Arial", color: manager.responseColors[manager.responseIndex]));
+                              return Text(value, 
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Arial"));
                             }
                           ),
                         )

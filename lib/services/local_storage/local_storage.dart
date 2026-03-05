@@ -12,12 +12,21 @@ class LocalStorage {
   }
 
   Color getColor() {
-    final colorInt = prefs.getInt(_colorKey) ?? 0x00_000000;
+    final colorInt = prefs.getInt(_colorKey) ?? 0xff_000000;
     return Color(colorInt);
   }
 
-  String getText() {
+  String getTextString() {
     final textString = prefs.getString(_textStringKey) ?? "Error";
     return textString;
   }
+
+  Future<void> setColor(Color color) async {
+    await prefs.setInt(_colorKey, color.toARGB32());
+  }
+
+  Future<void> setText(String string) async {
+    await prefs.setString(_textStringKey, string);
+  }
+
 }
