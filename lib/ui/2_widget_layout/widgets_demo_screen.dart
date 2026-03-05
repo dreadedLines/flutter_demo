@@ -5,8 +5,8 @@ class WidgetsLayoutDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const elevatedButton_name = "AAAAAAAAAAAAAAA";
-    const outlinedButton_name = "BBBBBBBBB";
+    const elevatedButtonName = "AAAAAAAAAAAAAAA";
+    const outlinedButtonName = "BBBBBBBBB";
     return Scaffold(
       appBar: AppBar(title: Text("Layout of widgets"),),
       body: SingleChildScrollView(
@@ -23,11 +23,11 @@ class WidgetsLayoutDemo extends StatelessWidget {
                 Icon(Icons.arrow_back, ),
               ],),
               ElevatedButton(onPressed: () {
-                print("Elevated button $elevatedButton_name was clicked");
-              }, child: Text(elevatedButton_name)),
+                // print("Elevated button $elevatedButton_name was clicked");
+              }, child: Text(elevatedButtonName)),
               OutlinedButton(onPressed: () {
-                print("Outlined button $outlinedButton_name was clicked");
-              }, child: Text(outlinedButton_name))
+                // print("Outlined button $outlinedButton_name was clicked");
+              }, child: Text(outlinedButtonName))
             ],
           ),
         ),
