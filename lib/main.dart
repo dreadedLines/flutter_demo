@@ -1,3 +1,4 @@
+import 'package:demo/services/auth/auth.dart';
 import 'package:demo/services/local_storage/local_storage.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,11 @@ import 'ui/4_user_login/user_login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
   setupServiceLocator();
   await getIt<LocalStorage>().init();
+  await getIt<Auth>().init();
+
   runApp(FlutterDemoApp());
 }
 
