@@ -1,9 +1,8 @@
-import 'package:demo/ui/demos/4_user_login/user_login_manager.dart';
 import 'package:demo/ui/demos/4_user_login/user_register.dart';
 import 'package:flutter/material.dart';
 
-// import '../../services/service_locator.dart';
-// import './user_login_manager.dart';
+import '../../../services/service_locator.dart';
+import 'user_login_manager.dart';
 
 class UserLoginDemo extends StatefulWidget {
   const UserLoginDemo({super.key});
@@ -13,6 +12,7 @@ class UserLoginDemo extends StatefulWidget {
 }
 
 class _UserLoginDemoState extends State<UserLoginDemo> {
+  // final manager = UserLoginManager();
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final manager = UserLoginManager();
-
-  bool _isLoading = false;  
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -48,7 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
         _isLoading = true;
       });
 
-      await manager.login(email: _emailController.text.trim(), password: _passwordController.text.trim());
+      // Simulate API call
+      await Future.delayed(const Duration(seconds: 2));
 
       if (mounted) {
         setState(() {
@@ -56,13 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
         });
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Login Successful!')),
-        );
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Login Failed.')),
         );
       }
     }
@@ -136,10 +128,8 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const RegisterScreen()),
-                  );
+                  MaterialPageRoute(builder: (context) => const RegisterScreen());
+                  // print("Going to registration screen");
                 },
                 child: const Text('Don\'t have an account? Register'),
               ),
