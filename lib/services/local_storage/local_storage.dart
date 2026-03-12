@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorage {
@@ -6,6 +7,7 @@ class LocalStorage {
 
   static const _colorKey = 'myColor';
   static const _textStringKey = 'myResponse';
+  static const _themeModeKey = "themeMode";
 
   Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
@@ -21,12 +23,36 @@ class LocalStorage {
     return textString;
   }
 
+  ThemeMode getThemeMode() {
+    final savedThemeMode = prefs.getString(_themeModeKey);
+    if (savedThemeMode == "light") {
+      return ThemeMode.light;
+    } else if (savedThemeMode == "dark") {
+      return ThemeMode.dark;
+    } else {
+      return ThemeMode.system;
+    }
+  }
+
   Future<void> setColor(Color color) async {
     await prefs.setInt(_colorKey, color.toARGB32());
   }
 
   Future<void> setText(String string) async {
     await prefs.setString(_textStringKey, string);
+  }
+
+  Future<void> setThemeMode(ThemeMode themeMode) async {
+    String value;
+    // TODO: replace with map
+    if (themeMode == ThemeMode.light) {
+      value = "light";
+    } else if (themeMode == ThemeMode.dark) {
+      value = "dark";
+    } else {
+      value = "system";
+    }
+    await prefs.setString(_themeModeKey, value);
   }
 
 }
