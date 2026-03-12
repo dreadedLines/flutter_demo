@@ -3,6 +3,7 @@ import 'package:demo/services/local_storage/local_storage.dart';
 import 'package:flutter/material.dart';
 
 import './services/service_locator.dart';
+import 'ui/settings/settings_screen.dart';
 import 'ui/demos/1_dart/dart_demo_screen.dart';
 import 'ui/demos/2_widget_layout/widgets_demo_screen.dart';
 import 'ui/demos/3_state_management/state_management_demo.dart';
@@ -46,7 +47,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context, 
-                  Settings
+                  MaterialPageRoute(builder: (context) => const SettingsScreen(),),
                 );
               },
             )
