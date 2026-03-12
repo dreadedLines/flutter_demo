@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
       drawer: Drawer(
         child: ListView(
           children: [
-            DrawerHeader(child: FlutterLogo()),
+            DrawerHeader(child: Icon(Icons.settings, size: 150,)),
             ListTile(
               title: Text("Settings"),
               onTap: () {
