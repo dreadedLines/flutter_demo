@@ -1,8 +1,6 @@
 import 'package:demo/ui/demos/4_user_login/user_register.dart';
 import 'package:flutter/material.dart';
 
-import '../../../services/service_locator.dart';
-import 'user_login_manager.dart';
 
 class UserLoginDemo extends StatefulWidget {
   const UserLoginDemo({super.key});
