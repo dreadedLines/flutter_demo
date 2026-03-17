@@ -1,3 +1,4 @@
+import 'package:demo/ui/settings/settings_manager.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -8,6 +9,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final manager = SettingsManager();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +44,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ButtonSegment(value: ThemeMode.dark, icon: Icon(Icons.sunny)),
           ], 
           selected: 
-            Set()
+            {manager.currentTheme},
+          onSelectionChanged: (Set<ThemeMode> selection) {
+            manager.setTheme(selection.first);
+            
+          },
         ),
       )
     );
