@@ -3,6 +3,8 @@ import 'package:demo/services/auth/auth.dart';
 import 'package:demo/services/local_storage/local_storage.dart';
 import 'package:flutter/material.dart';
 
+import 'theme.dart';
+
 import './services/service_locator.dart';
 import 'ui/settings/settings_screen.dart';
 import 'ui/demos/1_dart/dart_demo_screen.dart';
@@ -21,13 +23,25 @@ Future<void> main() async {
   runApp(FlutterDemoApp());
 }
 
-class FlutterDemoApp extends StatelessWidget {
+class FlutterDemoApp extends StatefulWidget {
   const FlutterDemoApp({super.key});
 
-    @override
-    Widget build(BuildContext context) {
-        return MaterialApp(home: const HomeScreen(), debugShowCheckedModeBanner: false,);
-    }
+  @override
+  State<FlutterDemoApp> createState() => _FlutterDemoAppState();
+}
+
+class _FlutterDemoAppState extends State<FlutterDemoApp> {
+  final appState = getIt<AppState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: appState,
+      builder: (context, child) {
+        return MaterialApp(home: const HomeScreen(), debugShowCheckedModeBanner: false, themeMode: appState.theme);
+      }
+    );
+  }
 }
 
 class HomeScreen extends StatefulWidget {
@@ -38,94 +52,78 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final appState = getIt<AppState>();
 
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: appState,
-      builder: (context, child) {
-        // TODO: fix this
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text("Home Screen"),
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Home Screen"),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(child: Icon(Icons.settings, size: 150,)),
+            ListTile(
+              title: Text("Settings"),
+              onTap: () {
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const SettingsScreen(),),
+                );
+              },
+            )
+          ],
+        ),
+      ),
+      // A ListView for your items
+      body: ListView(
+        children: [
+          // The single list item requested
+          ListTile(
+            title: const Text("1. Button"),
+            leading: const Icon(Icons.code), // Optional: adds a little icon
+            onTap: () {
+              // Navigate to the new screen defined in the other file
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const DartDemoScreen()),
+              );
+            },
           ),
-          drawer: Drawer(
-            child: ListView(
-              children: [
-                DrawerHeader(child: Icon(Icons.settings, size: 150,)),
-                ListTile(
-                  title: Text("Settings"),
-                  onTap: () {
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => const SettingsScreen(),),
-                    );
-                  },
-                )
-              ],
-            ),
+          ListTile(
+            title: const Text("2. Another"),
+            leading: const Icon(Icons.code), // Optional: adds a little icon
+            onTap: () {
+              // Navigate to the new screen defined in the other file
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const WidgetsLayoutDemo()),
+              );
+            },
           ),
-          // A ListView for your items
-          body: ListView(
-            children: [
-              // The single list item requested
-              ListTile(
-                title: const Text("1. Button"),
-                leading: const Icon(Icons.code), // Optional: adds a little icon
-                onTap: () {
-                  // Navigate to the new screen defined in the other file
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const DartDemoScreen()),
-                  );
-                },
-              ),
-              ListTile(
-                title: const Text("2. Another"),
-                leading: const Icon(Icons.code), // Optional: adds a little icon
-                onTap: () {
-                  // Navigate to the new screen defined in the other file
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const WidgetsLayoutDemo()),
-                  );
-                },
-              ),
-              ListTile(
-                title: const Text("3. State management"),
-                leading: const Icon(Icons.air),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const StateManagementDemo())
-                  );
-                }
-              ),
-              ListTile(
-                title: const Text("4. User login"),
-                leading: const Icon(Icons.dangerous),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen())
-                  );
-                }
-              ),
-            ],
+          ListTile(
+            title: const Text("3. State management"),
+            leading: const Icon(Icons.air),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const StateManagementDemo())
+              );
+            }
           ),
-        );
-      }
+          ListTile(
+            title: const Text("4. User login"),
+            leading: const Icon(Icons.dangerous),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen())
+              );
+            }
+          ),
+        ],
+      ),
     );
-  }
-}
-
-class DraggableContainer extends StatelessWidget {
-  const DraggableContainer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

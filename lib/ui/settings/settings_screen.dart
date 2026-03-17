@@ -40,8 +40,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         content: SegmentedButton(
           segments: [
             ButtonSegment(value: ThemeMode.light, icon: Icon(Icons.sunny)),
-            ButtonSegment(value: ThemeMode.system, icon: Icon(Icons.sunny)),
-            ButtonSegment(value: ThemeMode.dark, icon: Icon(Icons.sunny)),
+            ButtonSegment(value: ThemeMode.system, icon: Icon(Icons.phone_android)),
+            ButtonSegment(value: ThemeMode.dark, icon: Icon(Icons.bedtime)),
           ], 
           selected: 
             {manager.currentTheme},
