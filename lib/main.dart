@@ -32,13 +32,20 @@ class FlutterDemoApp extends StatefulWidget {
 
 class _FlutterDemoAppState extends State<FlutterDemoApp> {
   final appState = getIt<AppState>();
+  final materialTheme = MaterialTheme(TextTheme());
 
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: appState,
       builder: (context, child) {
-        return MaterialApp(home: const HomeScreen(), debugShowCheckedModeBanner: false, themeMode: appState.theme);
+        return MaterialApp(
+          home: const HomeScreen(), 
+          debugShowCheckedModeBanner: false, 
+          themeMode: appState.theme,
+          theme: materialTheme.light(),
+          darkTheme: materialTheme.dark(),
+        );
       }
     );
   }
