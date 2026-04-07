@@ -1,3 +1,4 @@
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -12,6 +13,6 @@ class DatabaseHelper {
 
   Future<void> init() async {
     final folder = await getApplicationDocumentsDirectory();
-    final path = '$folder/$_dbName';
+    final path = join(folder.path, _dbName);
   }
 }
