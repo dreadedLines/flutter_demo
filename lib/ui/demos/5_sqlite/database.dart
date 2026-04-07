@@ -1,5 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:pat';
+import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelper {
   static const _dbName = "my_database.db";
@@ -11,6 +11,7 @@ class DatabaseHelper {
   static const columnAge = 'age';
 
   Future<void> init() async {
-
+    final folder = await getApplicationDocumentsDirectory();
+    final path = '$folder/$_dbName';
   }
 }

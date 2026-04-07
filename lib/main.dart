@@ -1,6 +1,7 @@
 import 'package:demo/app_state.dart';
 import 'package:demo/services/auth/auth.dart';
 import 'package:demo/services/local_storage/local_storage.dart';
+import 'package:demo/ui/demos/5_sqlite/database.dart';
 import 'package:demo/ui/demos/5_sqlite/sqlite_demo.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,7 @@ Future<void> main() async {
   await getIt<LocalStorage>().init();
   await getIt<Auth>().init();
   await getIt<AppState>().init();
+  await getIt<DatabaseHelper>().init();
 
   runApp(FlutterDemoApp());
 }
