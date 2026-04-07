@@ -1,6 +1,7 @@
 import 'package:demo/app_state.dart';
 import 'package:demo/services/auth/auth.dart';
 import 'package:demo/services/local_storage/local_storage.dart';
+import 'package:demo/ui/demos/5_sqlite/sqlite_demo.dart';
 import 'package:flutter/material.dart';
 
 import 'theme.dart';
@@ -126,6 +127,16 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const LoginScreen())
+              );
+            }
+          ),
+          ListTile(
+            title: const Text("5. SQLite"),
+            leading: const Icon(Icons.downhill_skiing),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SqliteDemo())
               );
             }
           ),
