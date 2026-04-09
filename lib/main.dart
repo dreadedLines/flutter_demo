@@ -3,6 +3,7 @@ import 'package:demo/services/auth/auth.dart';
 import 'package:demo/services/local_storage/local_storage.dart';
 import 'package:demo/ui/demos/5_sqlite/database.dart';
 import 'package:demo/ui/demos/5_sqlite/sqlite_demo.dart';
+import 'package:demo/ui/demos/6_networking/networking_demo.dart';
 import 'package:flutter/material.dart';
 
 import 'theme.dart';
@@ -139,6 +140,16 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SqliteDemo())
+              );
+            }
+          ),
+          ListTile(
+            title: const Text("6. Networking"),
+            leading: const Icon(Icons.wifi),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const NetworkingDemo())
               );
             }
           ),
