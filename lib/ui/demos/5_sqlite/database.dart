@@ -1,7 +1,8 @@
 // source: https://suragch.medium.com/simple-sqflite-database-example-in-flutter-e56a5aaa3f91
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
+// import 'package:path_provider/path_provider.dart';
+// DartError: MissingPluginException(No implementation found for method getApplicationDocumentsDirectory on channel plugins.flutter.io/path_provider)
 
 class DatabaseHelper {
   static const _dbName = "my_database.db";
@@ -15,13 +16,14 @@ class DatabaseHelper {
   late Database _db;
 
   Future<void> init() async {
-    final folder = await getApplicationDocumentsDirectory();
-    final path = join(folder.path, _dbName);
-    Database _db = await openDatabase(
-      path,
-      version: _dbVersion,
-      onCreate: _onCreate,
-    );
+  //   // final folder = await getApplicationDocumentsDirectory();
+  //   // final path = join(folder.path, _dbName);
+  //   Database _db = await openDatabase(
+  //     path,
+  //     version: _dbVersion,
+  //     onCreate: _onCreate,
+  //     onUpgrade: _onUpgrade,
+  //   );
   }
 
   Future _onCreate(Database db, int version) async {
@@ -34,6 +36,12 @@ class DatabaseHelper {
     ''';
     await db.execute(query);
   }
+
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    // if (ol)
+    // TODO: fix this to ALTER TABLE ADD COLUMN $columnEmail
+  }
+
   // Helper methods
 
   // Inserts a row in the database where each key in the Map is a column name
