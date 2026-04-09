@@ -2,20 +2,25 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
-import 'package:path/path.dart';
 
 class NetworkingManager {
-  ValueNotifier catNotifier = ValueNotifier(Map<String, dynamic>);
+  ValueNotifier<String> catNotifier = ValueNotifier("");
 
   Future<void> getRequest() async {
     // final uri = Uri.parse("https://www.miu.edu.mn/");
     // final uri = Uri.parse("https://example.com/api/fetch?limit=10,20,30&max=100");
     // final uri = Uri.parse("https://jsonplaceholder.typicode.com/posts/1");
     final uri = Uri.parse("https://catfact.ninja/fact");
-    final response = await get(uri);
+    try {
+      final response = await get(uri);
+      final jsonResponse = response.body;
+      // print(jsonResponse);
+      final map = jsonDecode(jsonResponse);
+      catNotifier.value = map["fact"] ?? "";
+    } on ClientException {
+      catNotifier.value = "Sorry, couldn't get to the server.";
+    }
 
-    final jsonResponse = response.body;
-    catNotifier = jsonDecode(jsonResponse);
   }
   Future<void> postRequest() async {
     final uri = Uri.parse("https://jsonplaceholder.typicode.com/posts");
