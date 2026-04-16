@@ -5,6 +5,7 @@ import 'package:demo/ui/demos/5_sqlite/database.dart';
 import 'package:demo/ui/demos/5_sqlite/sqlite_demo.dart';
 import 'package:demo/ui/demos/6_networking/networking_demo.dart';
 import 'package:demo/ui/demos/7_testing/testing_demo.dart';
+import 'package:demo/ui/demos/8_profiling/profiling_demo.dart';
 import 'package:flutter/material.dart';
 
 import 'theme.dart';
@@ -161,6 +162,16 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const TestingDemo())
+              );
+            }
+          ),
+          ListTile(
+            title: const Text("8. Profiling"),
+            leading: const Icon(Icons.lock_clock),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilingDemo())
               );
             }
           ),
