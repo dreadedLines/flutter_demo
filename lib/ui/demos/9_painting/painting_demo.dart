@@ -28,14 +28,13 @@ class _PaintingDemoState extends State<PaintingDemo> {
 
 class MyPainter extends CustomPainter {
   final paintSettings = Paint()
-  ..color = Colors.black
+  ..color = Colors.orange
   ..style = PaintingStyle.fill
   ..strokeWidth = 10;
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(150, 150);
-    final radius = 100.0;
-    canvas.drawCircle(center, radius, paintSettings);
+    final rect = Rect.fromLTRB(150, 50, 400, 200);
+    canvas.drawOval(rect, paintSettings);
   }
   
   @override
