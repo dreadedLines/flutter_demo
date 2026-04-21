@@ -38,14 +38,18 @@ class MyPainter extends CustomPainter {
   ..strokeWidth = 4;
   @override
   void paint(Canvas canvas, Size size) {
-    final rect = Rect.fromLTRB(0, 0, 250, 200);
-    final startAngle = math.pi/2;
-    final sweepAngle = math.pi*1.2;
-    final useCenter = false;
-    canvas.drawArc(rect, startAngle, sweepAngle, useCenter, paintSettings);
-    final startAngle1 = math.pi*(1/2+1.2);
-    final sweepAngle1 = math.pi*(2-1.2);
-    canvas.drawArc(rect, startAngle1, sweepAngle1, useCenter, paintSettings1);
+    final path = Path()
+      ..moveTo(50, 50)
+      ..lineTo(200, 250)
+      ..quadraticBezierTo(200, 0, 150, 100)
+      ..quadraticBezierTo(0, 0, 100, 200)
+      ..lineTo(10, 200)
+      ;
+    final paint = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4;
+    canvas.drawPath(path, paint);
   }
   
   @override
