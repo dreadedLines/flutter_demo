@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 class PaintingDemo extends StatefulWidget {
   const PaintingDemo({super.key});
@@ -17,7 +16,7 @@ class _PaintingDemoState extends State<PaintingDemo> {
         Center(
           child: Container(
             decoration: BoxDecoration(border: Border.all(color: Colors.lime)),
-            child: CustomPaint( //                       <-- CustomPaint widget
+            child: CustomPaint( 
               size: Size(300, 300),
               painter: MyPainter(),
             ),
@@ -27,19 +26,16 @@ class _PaintingDemoState extends State<PaintingDemo> {
   }
 }
 
-class MyPainter extends CustomPainter { //         <-- CustomPainter class
+class MyPainter extends CustomPainter {
   final paintSettings = Paint()
   ..color = Colors.black
   ..style = PaintingStyle.fill
   ..strokeWidth = 10;
   @override
   void paint(Canvas canvas, Size size) {
-    final left = -60.0;
-    final top = -100.0;
-    final right = 350.0;
-    final bottom = 200.0;
-    final rect = Rect.fromLTRB(left, top, right, bottom);
-    canvas.drawRect(rect, paintSettings);
+    final center = Offset(150, 150);
+    final radius = 100.0;
+    canvas.drawCircle(center, radius, paintSettings);
   }
   
   @override
