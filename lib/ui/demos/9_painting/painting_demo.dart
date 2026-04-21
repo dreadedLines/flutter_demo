@@ -26,31 +26,12 @@ class _PaintingDemoState extends State<PaintingDemo> {
 class MyPainter extends CustomPainter { //         <-- CustomPainter class
   @override
   void paint(Canvas canvas, Size size) {
-    final pointMode = ui.PointMode.points;
-    final points = [
-      Offset(500, 100),
-      Offset(150, 70),
-      Offset(250, 250),
-      Offset(130, 200),
-      Offset(270, 100),
-    ];
+    final p1 = Offset(-100, 0);
+    final p2 = Offset(250, 150);
     final paint = Paint()
-      ..color = Colors.red
-      ..strokeWidth = 10
-      ..strokeCap = StrokeCap.round;
-    canvas.drawPoints(pointMode, points, paint);
-    final points1 = [
-      Offset(510, 100),
-      Offset(150, 75),
-      Offset(250, 250),
-      Offset(200, 200),
-      Offset(300, 100),
-    ];
-    final paint1 = Paint()
-      ..color = Colors.green
-      ..strokeWidth = 10
-      ..strokeCap = StrokeCap.round;
-    canvas.drawPoints(pointMode, points1, paint1);
+      ..color = Colors.white
+      ..strokeWidth = 4;
+    canvas.drawLine(p1, p2, paint);
   }
   
   @override
