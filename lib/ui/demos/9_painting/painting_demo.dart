@@ -3,6 +3,8 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/rendering.dart';
 
 class PaintingDemo extends StatefulWidget {
   const PaintingDemo({super.key});
@@ -28,8 +30,9 @@ class _PaintingDemoState extends State<PaintingDemo> {
                 ),
               ),
               Container(
-                color: Colors.grey,
-                child: ProgressBar(barColor: Colors.blue, thumbColor: Colors.red, thumbSize: 10.0,)
+                // color: Colors.grey,
+                width: 500,
+                child: ProgressBar(barColor: Colors.blue, thumbColor: Colors.red, thumbSize: 20.0,)
               )
             ],
           )
@@ -115,9 +118,26 @@ class RenderProgressBar extends RenderBox {
     required Color barColor,
     required Color thumbColor,
     required double thumbSize,
-  })  : _barColor = barColor,
-      _thumbColor = thumbColor,
-      _thumbSize = thumbSize;
+    })  : _barColor = barColor,
+          _thumbColor = thumbColor,
+          _thumbSize = thumbSize {
+          
+      // initialize the gesture recognizer
+      _drag = HorizontalDragGestureRecognizer()
+        ..onStart = (DragStartDetails details) {
+          _updateThumbPosition(details.localPosition);
+        }
+        ..onUpdate = (DragUpdateDetails details) {
+          _updateThumbPosition(details.localPosition);
+        };
+    }
+
+  void _updateThumbPosition(Offset localPosition) {
+    var dx = localPosition.dx.clamp(0, size.width);
+    _currentThumbValue = dx / size.width;
+    markNeedsPaint();
+    markNeedsSemanticsUpdate();
+  }
 
   Color get barColor => _barColor;
   Color _barColor;
@@ -164,4 +184,38 @@ class RenderProgressBar extends RenderBox {
   double computeMinIntrinsicHeight(double width) => thumbSize;
   @override
   double computeMaxIntrinsicHeight(double width) => thumbSize;
+
+  // paint the widget
+  double _currentThumbValue = 0.5;
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    final canvas = context.canvas;
+    canvas.save();
+    canvas.translate(offset.dx, offset.dy);
+    // paint bar
+    final barPaint = Paint()
+      ..color = barColor
+      ..strokeWidth = 5;
+    final point1 = Offset(0, size.height / 2);
+    final point2 = Offset(size.width, size.height / 2);
+    canvas.drawLine(point1, point2, barPaint);
+    // paint thumb
+    final thumbPaint = Paint()..color = thumbColor;
+    final thumbDx = _currentThumbValue * size.width;
+    final center = Offset(thumbDx, size.height / 2);
+    canvas.drawCircle(center, thumbSize / 2, thumbPaint);
+    canvas.restore();
+  }
+
+  // handle touching the widget
+  late HorizontalDragGestureRecognizer _drag;
+  @override
+  bool hitTestSelf(Offset position) => true;
+  @override
+  void handleEvent(PointerEvent event, BoxHitTestEntry entry) {
+    assert(debugHandleEvent(event, entry));
+    if (event is PointerDownEvent) {
+      _drag.addPointer(event);
+    }
+  }
 }
