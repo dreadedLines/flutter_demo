@@ -6,6 +6,7 @@ import 'package:demo/ui/demos/5_sqlite/sqlite_demo.dart';
 import 'package:demo/ui/demos/6_networking/networking_demo.dart';
 import 'package:demo/ui/demos/7_testing/testing_demo.dart';
 import 'package:demo/ui/demos/8_profiling/profiling_demo.dart';
+import 'package:demo/ui/demos/9_painting/painting_demo.dart';
 import 'package:flutter/material.dart';
 
 import 'theme.dart';
@@ -51,6 +52,7 @@ class _FlutterDemoAppState extends State<FlutterDemoApp> {
           themeMode: appState.theme,
           theme: materialTheme.light(),
           darkTheme: materialTheme.dark(),
+          title: 'class demo',
         );
       }
     );
@@ -172,6 +174,16 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const ProfilingDemo())
+              );
+            }
+          ),
+          ListTile(
+            title: const Text("9. Painting"),
+            leading: const Icon(Icons.brush),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PaintingDemo())
               );
             }
           ),
