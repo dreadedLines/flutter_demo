@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 class PaintingDemo extends StatefulWidget {
   const PaintingDemo({super.key});
@@ -38,18 +39,21 @@ class MyPainter extends CustomPainter {
   ..strokeWidth = 4;
   @override
   void paint(Canvas canvas, Size size) {
-    final path = Path()
-      ..moveTo(50, 50)
-      ..lineTo(200, 250)
-      ..quadraticBezierTo(200, 0, 150, 100)
-      ..quadraticBezierTo(0, 0, 100, 200)
-      ..lineTo(10, 200)
-      ;
-    final paint = Paint()
-      ..color = Colors.black
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4;
-    canvas.drawPath(path, paint);
+    final textStyle = ui.TextStyle(
+      color: Colors.black,
+      fontSize: 30,
+    );
+    final paragraphStyle = ui.ParagraphStyle(
+      textDirection: TextDirection.ltr,
+    );
+    final paragraphBuilder = ui.ParagraphBuilder(paragraphStyle)
+      ..pushStyle(textStyle)
+      ..addText('Hello, world.');
+    final constraints = ui.ParagraphConstraints(width: 300);
+    final paragraph = paragraphBuilder.build();
+    paragraph.layout(constraints);
+    final offset = Offset(50, 100);
+    canvas.drawParagraph(paragraph, offset);
   }
   
   @override
