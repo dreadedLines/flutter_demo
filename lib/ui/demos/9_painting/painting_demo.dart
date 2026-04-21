@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
 class PaintingDemo extends StatefulWidget {
   const PaintingDemo({super.key});
@@ -16,12 +18,17 @@ class _PaintingDemoState extends State<PaintingDemo> {
       backgroundColor: Colors.white,
       body: 
         Center(
-          child: Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.lime)),
-            child: CustomPaint( 
-              size: Size(300, 300),
-              painter: MyPainter(),
-            ),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(border: Border.all(color: Colors.lime)),
+                child: CustomPaint( 
+                  size: Size(300, 300),
+                  painter: MyPainter(),
+                ),
+              ),
+              
+            ],
           )
         ),
     );
@@ -59,5 +66,62 @@ class MyPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter old) {
     return false;
+  }
+}
+
+class ProgressBar extends LeafRenderObjectWidget {
+  const ProgressBar({
+    Key? key,
+    required this.barColor,
+    required this.thumbColor,
+    this.thumbSize = 20.0,
+    }) : super(key: key);
+
+    final Color barColor;
+    final Color thumbColor;
+    final double thumbSize;
+
+    @override
+    RenderProgressBar createRenderObject(BuildContext context) {
+      return RenderProgressBar(
+        barColor: barColor,
+        thumbColor: thumbColor,
+        thumbSize: thumbSize,
+      );
+    }
+
+    @override
+    void updateRenderObject(BuildContext context, RenderProgressBar renderObject) {
+      renderObject
+        ..barColor = barColor
+        ..thumbColor = thumbColor
+        ..thumbSize = thumbSize;
+    }
+
+    @override
+    void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+      super.debugFillProperties(properties);
+      properties.add(ColorProperty('barColor', barColor));
+      properties.add(ColorProperty('thumbColor', thumbColor));
+      properties.add(DoubleProperty('thumbSize', thumbSize));
+    }
+}
+
+class RenderProgressBar extends RenderBox {
+  RenderProgressBar({
+    required Color barColor,
+    required Color thumbColor,
+    required double thumbSize,
+  })  : _barColor = barColor,
+      _thumbColor = thumbColor,
+      _thumbSize = thumbSize;
+
+  Color get barColor => _barColor;
+  Color _barColor;
+  set barColor(Color value) {
+    if (_barColor == value) //  
+      return;
+    _barColor = value;
+    markNeedsPaint();
   }
 }
