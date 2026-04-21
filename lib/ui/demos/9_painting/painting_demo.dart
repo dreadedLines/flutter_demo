@@ -27,7 +27,10 @@ class _PaintingDemoState extends State<PaintingDemo> {
                   painter: MyPainter(),
                 ),
               ),
-              
+              Container(
+                color: Colors.grey,
+                child: ProgressBar(barColor: Colors.blue, thumbColor: Colors.red, thumbSize: 10.0,)
+              )
             ],
           )
         ),
@@ -119,9 +122,46 @@ class RenderProgressBar extends RenderBox {
   Color get barColor => _barColor;
   Color _barColor;
   set barColor(Color value) {
-    if (_barColor == value) //  
-      return;
+    if (_barColor == value) {return;} // if value doesn't change, don't repaint widget
     _barColor = value;
     markNeedsPaint();
   }
+  Color get thumbColor => _thumbColor;
+  Color _thumbColor;
+  set thumbColor(Color value) {
+    if (_thumbColor == value) {return;}
+    _thumbColor = value;
+    markNeedsPaint();
+  }
+  double get thumbSize => _thumbSize;
+  double _thumbSize;
+  set thumbSize(double value) {
+    if (_thumbSize == value) {return;} // if value doesn't change, don't remeasure widget
+    _thumbSize = value;
+    markNeedsLayout();
+  }
+
+  // compute size based on parent's constraints
+  @override
+  void performLayout() {
+    size = computeDryLayout(constraints);
+  }
+  @override
+  Size computeDryLayout(BoxConstraints constraints) {
+    final desiredWidth = constraints.maxWidth;
+    final desiredHeight = math.min(thumbSize, constraints.maxHeight);
+    final desiredSize = Size(desiredWidth, desiredHeight);
+    return constraints.constrain(desiredSize);
+  }  
+
+  // size by default
+  static const _minDesiredWidth = 100.0;
+  @override
+  double computeMinIntrinsicWidth(double height) => _minDesiredWidth;
+  @override
+  double computeMaxIntrinsicWidth(double height) => _minDesiredWidth;
+  @override
+  double computeMinIntrinsicHeight(double width) => thumbSize;
+  @override
+  double computeMaxIntrinsicHeight(double width) => thumbSize;
 }
