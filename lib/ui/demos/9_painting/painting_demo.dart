@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class PaintingDemo extends StatefulWidget {
   const PaintingDemo({super.key});
@@ -28,13 +29,23 @@ class _PaintingDemoState extends State<PaintingDemo> {
 
 class MyPainter extends CustomPainter {
   final paintSettings = Paint()
-  ..color = Colors.orange
+  ..color = Colors.cyanAccent
   ..style = PaintingStyle.fill
   ..strokeWidth = 10;
+  final paintSettings1 = Paint()
+  ..color = Colors.black
+  ..style = PaintingStyle.fill
+  ..strokeWidth = 4;
   @override
   void paint(Canvas canvas, Size size) {
-    final rect = Rect.fromLTRB(150, 50, 400, 200);
-    canvas.drawOval(rect, paintSettings);
+    final rect = Rect.fromLTRB(0, 0, 250, 200);
+    final startAngle = math.pi/2;
+    final sweepAngle = math.pi*1.2;
+    final useCenter = false;
+    canvas.drawArc(rect, startAngle, sweepAngle, useCenter, paintSettings);
+    final startAngle1 = math.pi*(1/2+1.2);
+    final sweepAngle1 = math.pi*(2-1.2);
+    canvas.drawArc(rect, startAngle1, sweepAngle1, useCenter, paintSettings1);
   }
   
   @override
