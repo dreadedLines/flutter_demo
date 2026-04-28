@@ -53,11 +53,13 @@ class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final path = Path()
-      ..moveTo(50, 50)
-      ..lineTo(200, 250)
-      ..quadraticBezierTo(200, 0, 150, 100)
-      ..quadraticBezierTo(0, 0, 100, 200)
-      ..lineTo(10, 200)
+      // ..moveTo(50, 50)
+      // ..lineTo(200, 250)
+      ..moveTo(50, 30)
+      ..quadraticBezierTo(0, 200, 150, 100)
+      ..quadraticBezierTo(300, 0, 250, 170)
+      // ..quadraticBezierTo(0, 0, 100, 200)
+      // ..lineTo(10, 200)
       ;
     final paint = Paint()
       ..color = Colors.black
