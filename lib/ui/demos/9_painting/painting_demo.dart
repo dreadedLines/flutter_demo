@@ -58,6 +58,8 @@ class MyPainter extends CustomPainter {
       ..moveTo(50, 30)
       ..quadraticBezierTo(0, 200, 150, 100)
       ..quadraticBezierTo(300, 0, 250, 170)
+      ..moveTo(50, 30)
+      ..cubicTo(0, 200, 300, 0, 250, 170)
       // ..quadraticBezierTo(0, 0, 100, 200)
       // ..lineTo(10, 200)
       ;
