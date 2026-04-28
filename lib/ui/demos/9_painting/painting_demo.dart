@@ -1,3 +1,9 @@
+// How I would tie control points to ProgressBar:
+// - Put listener as member of ProgressBar
+// - Create 4 ProgressBars in _PaintingDemoState
+// - Put them inside ChangeNotifier
+// - Create ListenableBuilder to rebuild CustomPaint with ChangeNotifier values
+
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 // import 'dart:ui' as ui;
@@ -5,6 +11,35 @@ import 'dart:math' as math;
 // import 'package:flutter/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
+
+class ControlPoints extends ChangeNotifier {
+  double _x1 = 0;
+  double get x1 => _x1;
+  set x1(double value) => {
+    _x1 = value,
+    notifyListeners()
+  };
+  double _y1 = 0;
+  double get y1 => _y1;
+  set y1(double value) => {
+    _y1 = value,
+    notifyListeners()
+  };
+  double _x2 = 0;
+  double get x2 => _x2;
+  set x2(double value) => {
+    _x2 = value,
+    notifyListeners()
+  };
+  double _y2 = 0;
+  double get y2 => _y2;
+  set y2(double value) => {
+    _y2 = value,
+    notifyListeners()
+  };
+
+  ControlPoints(double x1, double y1, double x2, double y2);
+}
 
 class PaintingDemo extends StatefulWidget {
   const PaintingDemo({super.key});
@@ -14,6 +49,8 @@ class PaintingDemo extends StatefulWidget {
 }
 
 class _PaintingDemoState extends State<PaintingDemo> {
+  final control_points = ControlPoints(0, 0, 0, 0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,15 +61,22 @@ class _PaintingDemoState extends State<PaintingDemo> {
             children: [
               Container(
                 decoration: BoxDecoration(border: Border.all(color: Colors.lime)),
-                child: CustomPaint( 
-                  size: Size(300, 300),
-                  painter: MyPainter(),
+                child: ListenableBuilder(listenable: control_points, builder: (context, child) {
+                  return CustomPaint( 
+                    size: Size(300, 300),
+                    painter: MyPainter(control_points.x1, control_points.y1, control_points.x2, control_points.y2)
+                  );
+                }
                 ),
               ),
-              Container(
+              Column(
                 // color: Colors.grey,
-                width: 500,
-                child: ProgressBar(barColor: Colors.blue, thumbColor: Colors.red, thumbSize: 20.0,)
+                children: [
+                  ProgressBar(barColor: Colors.blue, thumbColor: Colors.red, thumbSize: 20.0,),
+                  ProgressBar(barColor: Colors.blue, thumbColor: Colors.red, thumbSize: 20.0,),
+                  ProgressBar(barColor: Colors.blue, thumbColor: Colors.red, thumbSize: 20.0,),
+                  ProgressBar(barColor: Colors.blue, thumbColor: Colors.red, thumbSize: 20.0,),
+                ]
               )
             ],
           )
@@ -42,6 +86,8 @@ class _PaintingDemoState extends State<PaintingDemo> {
 }
 
 class MyPainter extends CustomPainter {
+  MyPainter(double x1, double y1, double x2, double y2);
+
   final paintSettings = Paint()
   ..color = Colors.cyanAccent
   ..style = PaintingStyle.fill
@@ -87,6 +133,7 @@ class ProgressBar extends LeafRenderObjectWidget {
     final Color barColor;
     final Color thumbColor;
     final double thumbSize;
+    final listenerCurrentThumbValue = ValueNotifier<double>(0);
 
     @override
     RenderProgressBar createRenderObject(BuildContext context) {
@@ -99,6 +146,7 @@ class ProgressBar extends LeafRenderObjectWidget {
 
     @override
     void updateRenderObject(BuildContext context, RenderProgressBar renderObject) {
+      RenderProgressBar.listenerCurrentThumbValue = context.,
       renderObject
         ..barColor = barColor
         ..thumbColor = thumbColor
@@ -112,6 +160,7 @@ class ProgressBar extends LeafRenderObjectWidget {
       properties.add(ColorProperty('thumbColor', thumbColor));
       properties.add(DoubleProperty('thumbSize', thumbSize));
     }
+
 }
 
 class RenderProgressBar extends RenderBox {
@@ -131,11 +180,14 @@ class RenderProgressBar extends RenderBox {
         ..onUpdate = (DragUpdateDetails details) {
           _updateThumbPosition(details.localPosition);
         };
+
     }
+
+  get thumbValue => this._currentThumbValue;
 
   void _updateThumbPosition(Offset localPosition) {
     var dx = localPosition.dx.clamp(0, size.width);
-    _currentThumbValue = dx / size.width;
+    this._currentThumbValue = dx / size.width;
     markNeedsPaint();
     markNeedsSemanticsUpdate();
   }
@@ -187,7 +239,7 @@ class RenderProgressBar extends RenderBox {
   double computeMaxIntrinsicHeight(double width) => thumbSize;
 
   // paint the widget
-  double _currentThumbValue = 0.5;
+  double this._currentThumbValue = 0.5;
   @override
   void paint(PaintingContext context, Offset offset) {
     final canvas = context.canvas;
