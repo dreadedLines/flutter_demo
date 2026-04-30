@@ -1,12 +1,13 @@
 import 'package:demo/app_state.dart';
 import 'package:demo/services/auth/auth.dart';
 import 'package:demo/services/local_storage/local_storage.dart';
+import 'package:demo/ui/demos/10_audio/audio_demo.dart';
 import 'package:demo/ui/demos/5_sqlite/database.dart';
 import 'package:demo/ui/demos/5_sqlite/sqlite_demo.dart';
 import 'package:demo/ui/demos/6_networking/networking_demo.dart';
 import 'package:demo/ui/demos/7_testing/testing_demo.dart';
 import 'package:demo/ui/demos/8_profiling/profiling_demo.dart';
-import 'package:demo/ui/demos/9_painting/painting_demo.dart';
+// import 'package:demo/ui/demos/9_painting/painting_demo.dart';
 import 'package:flutter/material.dart';
 
 import 'theme.dart';
@@ -177,13 +178,23 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             }
           ),
+          // ListTile(
+          //   title: const Text("9. Painting"),
+          //   leading: const Icon(Icons.brush),
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) => const PaintingDemo())
+          //     );
+          //   }
+          // ),
           ListTile(
-            title: const Text("9. Painting"),
-            leading: const Icon(Icons.brush),
+            title: const Text("10. Audio"),
+            leading: const Icon(Icons.microwave_sharp),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const PaintingDemo())
+                MaterialPageRoute(builder: (context) => const AudioDemo())
               );
             }
           ),
