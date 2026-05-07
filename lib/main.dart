@@ -2,6 +2,7 @@ import 'package:demo/app_state.dart';
 import 'package:demo/services/auth/auth.dart';
 import 'package:demo/services/local_storage/local_storage.dart';
 import 'package:demo/ui/demos/10_audio/audio_demo.dart';
+import 'package:demo/ui/demos/11_animations/animations_demo.dart';
 import 'package:demo/ui/demos/5_sqlite/database.dart';
 import 'package:demo/ui/demos/5_sqlite/sqlite_demo.dart';
 import 'package:demo/ui/demos/6_networking/networking_demo.dart';
@@ -195,6 +196,16 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const AudioDemo())
+              );
+            }
+          ),
+          ListTile(
+            title: const Text("11. Animations"),
+            leading: const Icon(Icons.animation_rounded),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AnimationsDemo())
               );
             }
           ),
