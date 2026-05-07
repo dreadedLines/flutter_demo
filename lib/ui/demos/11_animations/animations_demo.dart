@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class AnimationsDemo extends StatefulWidget {
+class AnimationsDemo extends StatelessWidget {
   const AnimationsDemo({super.key});
 
   @override
-  State<AnimationsDemo> createState() => _AnimationsDemoState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Animations demo")),
+      body: Column(
+        children: [
+          Center(
+            child: 
+              LogoSimpleWidget(),
+          ),
+
+        ],
+      ),
+    );
+  }
 }
 
-class _AnimationsDemoState extends State<AnimationsDemo> with SingleTickerProviderStateMixin {
-  late Animation<double> animation;
+class LogoSimpleWidget extends StatefulWidget {
+  const LogoSimpleWidget({super.key});
+
+  @override
+  State<LogoSimpleWidget> createState() => _LogoSimpleWidgetState();
+}
+
+class _LogoSimpleWidgetState extends State<LogoSimpleWidget> with SingleTickerProviderStateMixin {
+late Animation<double> animation;
   late AnimationController controller;
 
   @override
@@ -17,6 +37,7 @@ class _AnimationsDemoState extends State<AnimationsDemo> with SingleTickerProvid
     super.initState();
     controller =
         AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    // animation = Tween<double>(begin: 10, end: 300).animate(controller)
     animation = Tween<double>(begin: 10, end: 300).animate(controller)
       ..addListener(() {
         setState(() {
@@ -36,23 +57,14 @@ class _AnimationsDemoState extends State<AnimationsDemo> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Animations demo")),
-      body: Column(
-        children: [
-          Center(
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              height: 
-              //300 - animation.value,
-              animation.value,
-              width: 
-              animation.value,
-              child: const FlutterLogo(),
-            ),
-          ),
-        ],
-      ),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      height: 
+      //300 - animation.value,
+      animation.value,
+      width: 
+      animation.value,
+      child: const FlutterLogo(),
     );
   }
 
@@ -62,4 +74,3 @@ class _AnimationsDemoState extends State<AnimationsDemo> with SingleTickerProvid
     super.dispose();
   }
 }
-
