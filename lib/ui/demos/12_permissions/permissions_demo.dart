@@ -9,7 +9,7 @@ class PermissionsDemo extends StatefulWidget {
 }
 
 class _PermissionsDemoState extends State<PermissionsDemo> {
-  String _message = '';
+  String _message = "Give me location permission";
 
   Future<void> _getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -40,9 +40,13 @@ class _PermissionsDemoState extends State<PermissionsDemo> {
       _message = "...fetching coordinates...";
     });
 
-    final = position = await Geolocator.getCurrentPosition(
+    final position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
+
+    setState(() {
+      _message = "Latitude: ${position.latitude}, longitude: ${position.longitude}";
+    });
   }
 
   @override
@@ -54,7 +58,7 @@ class _PermissionsDemoState extends State<PermissionsDemo> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.location_pin),
-            Text("Give me location permission"),
+            Text(_message),
             OutlinedButton(onPressed:  _getCurrentLocation, child: Text("Find My Location"))
           ],
         ),
