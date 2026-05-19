@@ -5,6 +5,7 @@ import 'package:demo/services/local_storage/local_storage.dart';
 import 'package:demo/ui/demos/10_audio/audio_demo.dart';
 import 'package:demo/ui/demos/11_animations/animations_demo.dart';
 import 'package:demo/ui/demos/12_permissions/permissions_demo.dart';
+import 'package:demo/ui/demos/13_localisation/localisation_demo.dart';
 import 'package:demo/ui/demos/5_sqlite/database.dart';
 import 'package:demo/ui/demos/5_sqlite/sqlite_demo.dart';
 import 'package:demo/ui/demos/6_networking/networking_demo.dart';
@@ -229,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const PermissionsDemo())
+                MaterialPageRoute(builder: (context) => const LocalisationDemo())
               );
             }
           ),

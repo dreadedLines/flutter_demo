@@ -1,3 +1,4 @@
+import 'package:demo/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class LocalisationDemo extends StatefulWidget {
@@ -13,7 +14,7 @@ class _LocalisationDemoState extends State<LocalisationDemo> {
     return Scaffold(
       appBar: AppBar(title: Text("Localisation demo"),),
       body: Center(
-        child: Text("Hello world", style: TextStyle(fontSize: 30),),
+        child: Text(AppLocalizations.of(context)!.helloWorld, style: TextStyle(fontSize: 30),),
       ),
     );
   }
