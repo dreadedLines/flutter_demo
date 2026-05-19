@@ -220,6 +220,16 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             }
           ),
+          ListTile(
+            title: const Text("13. Localisation"),
+            leading: const Icon(Icons.earbuds_battery_sharp),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PermissionsDemo())
+              );
+            }
+          ),
         ],
       ),
     );
