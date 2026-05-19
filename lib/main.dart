@@ -1,4 +1,5 @@
 import 'package:demo/app_state.dart';
+import 'package:demo/l10n/app_localizations.dart';
 import 'package:demo/services/auth/auth.dart';
 import 'package:demo/services/local_storage/local_storage.dart';
 import 'package:demo/ui/demos/10_audio/audio_demo.dart';
@@ -56,6 +57,8 @@ class _FlutterDemoAppState extends State<FlutterDemoApp> {
           theme: materialTheme.light(),
           darkTheme: materialTheme.dark(),
           title: 'class demo',
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
         );
       }
     );
