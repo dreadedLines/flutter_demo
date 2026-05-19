@@ -17,4 +17,21 @@ class SettingsManager{
       return 'System default';
     }
   }
+
+  Locale get currentLocale => appState.locale;
+  String get currentLocaleTitle {
+    print(currentLocale.countryCode);
+    // TODO: needs enum to available locales
+    if (currentLocale.countryCode == "en") {
+      return 'English';
+    } else if (currentLocale.countryCode == "mn") {
+      return 'Mongolian';
+    } else if (currentLocale.countryCode == "ru") {
+      return 'Russian';
+    } else {
+      return "Error";
+    }
+  }
+  void setLanguage(Locale newLocale) => appState.setLocale(newLocale);
+
 }
